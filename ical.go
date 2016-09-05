@@ -126,6 +126,7 @@ type VEvent struct {
 	SUMMARY     string
 	DESCRIPTION string
 	TZID        string
+	LOCATION    string
 
 	AllDay bool
 }
@@ -171,6 +172,11 @@ func (e *VEvent) EncodeIcal(w io.Writer) error {
 	}
 	if e.DESCRIPTION != "" {
 		if _, err := b.WriteString("DESCRIPTION:" + e.DESCRIPTION + "\r\n"); err != nil {
+			return err
+		}
+	}
+	if e.LOCATION != "" {
+		if _, err := b.WriteString("LOCATION:" + e.LOCATION + "\r\n"); err != nil {
 			return err
 		}
 	}
